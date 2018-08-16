@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>工作中心</title>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-card">
+			<ul class="aui-list-view" id="workCenterlist"></ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var serverUrl = localStorage.getItem('serverUrl');
+			var url = serverUrl + "padController!getWorkcenter.m";
+			var usename = localStorage.getItem('un');
+			api.ajax({
+				url : url,
+				method : 'post',
+				dataType : 'text',
+				returnAll : 'false',
+				data : {
+					values : {
+						un : usename
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					$("#workCenterlist").append("");
+					var myobj = eval(ret);
+					for (var i = 0; i < myobj.length; i++) {
+						$("#workCenterlist").append("<li class=\"aui-list-view-cell\" tapmode data-win=\"list_arrow\" onclick=\"saveWC('" + myobj[i].id + "','" + myobj[i].code + "','" + myobj[i].name + "')\">[" + myobj[i].code + "]" + myobj[i].name + "</li>");
+					}
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+		};
+		function saveWC(id, code, name) {
+			//alert(name);
+			api.alert({
+				title : '保存成功',
+				buttons : ['确定']
+			}, function(ret, err) {
+				localStorage.setItem('workcenterGid', id);
+				localStorage.setItem('workcenterCode', code);
+				localStorage.setItem('workcenterName', name);
+				api.closeWin();
+			});
+		}
+	</script>
+</html>

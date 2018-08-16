@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />-->
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<link rel="stylesheet" type="text/css" href="../css/icons.css" />
+	<style>
+		#afui label {
+		    font-size: 1.2em;
+		    font-weight: bold;
+			width:20%;
+			float:none;
+		}
+		.head{
+			width:500px;
+			
+		}
+		.center{
+			margin:auto;
+		}
+		#afui .input-group .tex{
+			background-color:#F2F9FF;
+		}
+		#afui select{
+			padding:0 ;
+		}
+		
+		#afui .input-group input:not([type="submit"]):not([type="button"]):last-child,
+		#afui .input-group textarea:last-child,
+		#afui .input-group select:last-child {
+		  border-bottom: 1px solid #CBD6DE;
+		}
+		
+		.btn{
+			font-size:14px;
+		}
+		#afui .button {
+		    font-size: 18px;
+		    width:90px;
+		    height:32px;
+		}
+		
+			.row1 td{
+				background: red;
+			}
+			.row0 td{
+				background: yellow;
+			}
+			.row_hover td {
+				background: #FBFACE;
+				color: #000000;
+			}
+		.btn31 {
+		    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+		 
+		    -webkit-border-radius: 30px;
+		    -moz-border-radius: 30px;
+		    border-radius: 30px;
+		 
+		    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		    -moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		    box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		 
+		    -webkit-transition: all 0.15s ease;
+		    -moz-transition: all 0.15s ease;
+		    -o-transition: all 0.15s ease;
+		    -ms-transition: all 0.15s ease;
+		    transition: all 0.15s ease;
+			
+		}
+		.btn32{
+			height: 42px;
+		    width: 131px;
+		    border: none;
+		    outline: none;
+		    cursor: pointer;
+		    color: white;
+		    background: url("static/img/button_bg.png") no-repeat left top;
+		}
+		#afui input[type=button], #afui input[type=submit], #afui button {
+		    font-size: 20px;
+		}
+		
+		#afui .list {
+			    font-size: 1.2em;
+		    font-weight: bold;
+		    width:100px;
+		    
+		}
+		#afui #displayMessage{
+		    width: 400px;
+		    line-height: 70px;
+		    text-align:center;
+		    font-size: 16px;
+		    position: absolute;
+		    z-index: 100;
+			top:18%;
+			left:0;right:0;
+			margin:auto;
+			
+			background-color: #FDFFD5;
+		    border: 1px solid #f57676;
+			border-radius:6px;
+		    color: #af6606;
+		}
+		.table tr:first-child{
+			background: url(static/img/tableheader-bg.gif) no-repeat left top;
+			background-color:#DCE9F2;
+		    border-top: 1px solid #CBD6DE;
+		    border-bottom: 1px solid #ADBECB;
+		    color: #467aa7;
+		    font-size: 13px;
+		    font-weight: bold;
+		}
+		.table{
+			margin-bottom: 15px;
+			width: 100%;
+			border-collapse: collapse;
+			font-size:13px;
+			margin-bottom: 15px;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.table td{
+			height:45px;
+			text-align:center;
+			border:1px solid #CBD6DE;
+			padding:0 ;
+			margin: 0;
+			
+		}
+		#afui .icon check big{
+			font-size:8px;
+			color:blue;
+		}
+		
+		.grey_overlay {
+			display: none;
+			position: absolute;
+			top: 0.1%;
+			left: 0%;
+			right: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(158, 158, 158, 0.52);
+			z-index: 190;
+			-moz-opacity: 0.8;
+			opacity: .80;
+			filter: alpha(opacity = 80);
+		}
+		
+		#center {
+			background-color:red;
+		}
+    		.test {
+width:300px;
+display: inline-block;
+padding: 5px 10px 6px;
+text-decoration: none;
+
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+border-bottom: 1px solid rgba(0,0,0,0.25);
+--position: relative;
+cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav" style="background-color: #3498db;" id='header'>
+	    <a class="aui-pull-left">
+	        <span class="aui-iconfont aui-icon-left" onclick="api.closeWin()"></span>
+	    </a>
+	    <div class="aui-title" id="title">工作中心绑定</div>
+
+		
+	</header>
+      <div id="hisInfo" class="hisInfo" style="background-color:white;">
+			<table id="disBillTable" class="table"  >	
+			</table>
+		</div>
+        
+        
+    </div>
+ 
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<!--script type="text/javascript" src="static/appframework-2.1.0/js/pda.js"></script-->
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/pda.js"></script>
+<script type="text/javascript" src="../script/page.js"></script>
+<script>
+function clearDisBillTable(){
+	var table = "<table id='disBillTable' style='width:100%;'><tr id='tr1'><td width='16.5%'><input name='checkbox' type='checkbox' onclick='changeselect()' style='width:22px;height:22px'></td><td width='10%'>序号</td><td width='31%'>工作中心编码</td><td >工作中心名称</td></tr></table>";
+	var tab = document.getElementById("disBillTable");
+	tab.innerHTML = table;
+}
+apiready = function() {
+    clearDisBillTable();
+	var header = $api.byId('wrap');
+	$api.fixIos7Bar(header);
+	var headerPos = $api.offset(header);//获取元素在页面中的位置与宽高
+	    
+    //var pageUrl = api.pageParam.url;
+    
+  
+    var title = api.pageParam.title;
+    
+$("#title").text(title);
+   	var frameH = api.winHeight - headerPos.h;
+    api.openFrame({
+        name: 'workcell',
+        url: 'workcell.html',
+        customRefreshHeader: 'UIPullRefreshMotive',
+        rect:{
+            x:0,
+            y:headerPos.h,
+            w:'auto',
+            h:'auto'
+        },
+       	allowEdit:true,
+        bgColor: '#FFFFFF',
+        showProgress: true,
+        bounces: false,
+        reload:true
+    });
+
+}
+function changeselect(){
+
+    api.execScript({
+        name:'page2',
+        frameName: 'workcell',
+	    script: 'changeselect();'
+    });
+
+}
+</script>
+</html>

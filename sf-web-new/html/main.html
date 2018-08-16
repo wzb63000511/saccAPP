@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<style>
+			body {
+			}
+			.topmenu {
+				background: rgba(102,102,102,0.8);
+				overflow: hidden;
+				padding: 10px 0;
+				margin-bottom: 0;
+			}
+			.topmenu .aui-iconfont, .topmenu p {
+				color: #ffffff;
+			}
+			.topmenu .aui-iconfont {
+				font-size: 1.6em;
+			}
+			.slider img {
+				width: 100%;
+				height: 120px;
+				display: inherit;
+			}
+			.aui-content.box {
+				background: #fff;
+			}
+			.box {
+				/*padding-top: 15px;*/
+			}
+			.box-title {
+				margin: 15px 10px 5px 10px;
+				/*margin-bottom: 5px;*/
+				height: 20px;
+				line-height: 20px;
+				border-left: 5px solid #ff9900;
+				color: #666;
+				font-weight: 700;
+				padding-left: 10px;
+			}
+			.box .aui-list-view {
+				margin-bottom: 0;
+			}
+			.aui-list-view i.aui-iconfont {
+				margin-right: 0;
+			}
+
+		</style>
+	</head>
+	<body>
+		<!--
+		<header class="aui-bar aui-bar-nav aui-bar-epichust" id="aui-header">
+			<a class="aui-btn aui-btn-epichust aui-pull-left" tapmode > <span class="aui-iconfont"></span> </a>
+			<div class="aui-title">
+				菜单
+			</div>
+		</header>
+		
+		<header class="aui-bar aui-bar-nav aui-bar-dark" style="background-color: #030303">菜单</header>
+		-->
+		
+		<header class="aui-bar aui-bar-nav" style="background-color: #3498db">菜单</header>
+		<!--<div class="aui-content topmenu aui-text-center" style="background-color: #030303">
+			<div class="aui-col-xs-3" onclick="toPhoto()">
+				<span class="aui-iconfont aui-icon-camera"></span>
+				<p>
+					相机
+				</p>
+			</div>
+			<div class="aui-col-xs-3" onclick="toScanner()">
+				<span class="aui-iconfont aui-icon-scan"></span>
+				<p>
+					扫描
+				</p>
+			</div>
+			<div class="aui-col-xs-3">
+				<span class="aui-iconfont aui-icon-my" onclick="setPerson()"></span>
+				<p>
+					个人设置
+				</p>
+			</div>
+			<div class="aui-col-xs-3">
+				<span class="aui-iconfont aui-icon-home" onclick="toWorkCenter()"></span>
+				<p>
+					工作中心
+				</p>
+			</div>
+		</div>-->
+		<div class="aui-content">
+			<ul class="aui-grid-sixteen" id="sixteenUL"></ul>
+		</div>
+		<div class="aui-content">
+			<ul class="aui-list-view" id="msgUl">
+		        
+		    </ul>
+		</div>
+		
+		<div class="aui-content">
+			<img src="../image/epichust-ad1.jpg" border="0" width="0" height="0" onclick=""/>
+		</div>
+		
+		
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+		function getAllWorkCell(){	
+		api.addEventListener({
+		    name:'swipeleft'
+		}, function(ret, err){
+		    
+		   api.openWin({
+			    name: 'page2',
+			    url: 'workcellHeader.html'
+			    
+			});
+		});
+}
+		apiready = function() {
+
+			api.addEventListener({
+			    name:'keyback'
+			}, function(ret, err){        
+			    if( ret ){
+			    	//alert( JSON.stringify( ret ) );
+			        api.closeWin();
+					api.setScreenOrientation({
+			            orientation: 'auto'
+			        });
+			    }else{
+			        alert( JSON.stringify( err ) );
+			    }
+			});
+			
+			api.setScreenOrientation({
+	            orientation: 'auto'
+	        });
+//	        api.setFullScreen({
+//	            fullScreen: true
+//	        });   
+	        
+	        var winWidth = api.winWidth;
+			var winHeight = api.winHeight*3/7;
+	        
+			var imgs = document.getElementsByTagName('img');
+			var img = imgs[0];
+			AutoResizeImage(winWidth,winHeight,img);
+			
+			window.addEventListener("orientationchange", function() {
+				var winH = api.winWidth < api.winHeight ? api.winHeight : api.winWidth;//设备高度
+				var winW = api.winWidth < api.winHeight ? api.winWidth : api.winHeight;//设备宽度
+				var imgH = -1;
+				var imgW = -1;
+//				alert(winH);
+//				alert(winW);
+				if(window.orientation != 0)
+				{
+					//横屏
+					imgW = winH;
+					imgH = winW*3/7;
+				}else{
+					//竖屏
+					imgW = winW;
+					imgH = winH*3/7;
+				}
+				 
+				AutoResizeImage(imgW,imgH,img);
+			}, false);
+			
+			var serverUrl = localStorage.getItem('serverUrl');
+			var url = serverUrl + "padController!getAppMenu.m";
+			var un = localStorage.getItem('un');
+			var pw = localStorage.getItem('pw');
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+			var url1 = serverIp + ":" + serverPort + "/" + serverProject;
+			
+			var menuKey = localStorage.getItem(un+":menu");
+			
+			api.ajax({
+				url : url,
+				method : 'post',
+				dataType : 'text',
+				returnAll : 'false',
+				data : {
+					values : {
+						un : un,
+						pw : pw,
+						url : url1,
+						menuKey : menuKey
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					var myobj = eval(ret);
+					//alert(myobj.length);
+					var i=0;
+					for (; i < myobj.length; i++) {
+						//alert(myobj[i].icon+myobj[i].title);
+						//$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + myobj[i].url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon +" aui-text-epgreen\"></span><p>" + myobj[i].title + "</p></li>");
+						var menuLevel = myobj[i].menuLevel;	//菜单级别（一级菜单点击进入二级菜单，二级菜单点击进入界面）
+						if(myobj.length > 9){
+							//菜单数大于9，使用12宫格
+							if(menuLevel == "1" )
+							{
+								 //一级菜单
+								 $("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='getMenuByPid(\"" + myobj[i].title + "\",\"" + myobj[i].id + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+							}else{
+								//二级菜单
+								if(myobj[i].menuFlag == "1" )
+					            {
+					              var to_url = myobj[i].rel + ".html";
+					              $("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goPage2(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+					            }else if (myobj[i].menuFlag == "11") {
+									var to_url = myobj[i].url;
+									$("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goPctPage(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont " + myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+								} else if (myobj[i].menuFlag == "12") {
+									var to_url = myobj[i].rel + ".html";
+									$("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goTvShowPage(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont " + myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+								}else{
+					              $("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goPage(\"" + myobj[i].url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+					            }
+							}
+						}else{
+
+							//小于9个，使用9宫格
+							if(menuLevel == "1" )
+							{
+								 //一级菜单
+								 $("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='getMenuByPid(\"" + myobj[i].title + "\",\"" + myobj[i].id + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+							}else{
+								//二级菜单
+								if(myobj[i].menuFlag == "1" )
+					            {
+					              var to_url = myobj[i].rel + ".html";
+					              $("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage2(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+						          
+					            }else if (myobj[i].menuFlag == "11") {
+									var to_url = myobj[i].url;
+									$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPctPage(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont " + myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+								} else if (myobj[i].menuFlag == "12") {
+									var to_url = myobj[i].rel + ".html";
+									$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goTvShowPage(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont " + myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+								}else if(myobj[i].menuFlag == "2"){
+								 	var to_url = myobj[i].rel + ".html";
+				              		$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + to_url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+								}else{
+					              $("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + myobj[i].url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " \"></span><p>" + myobj[i].title + "</p></li>");
+					            }
+							}
+
+						}
+						
+			            //$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + myobj[i].url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont "+ myobj[i].icon + " aui-text-epgreen\"></span><p>" + myobj[i].title + "</p></li>");
+					}
+					if(i<9){
+						for(var j=0;j<9-i;j++){
+							$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='toSetMenu()'><span class=\"aui-iconfont aui-icon-add1 aui-text-epgray\"></span><p>其他</p></li>");
+						}
+					}
+					if(i>9 && i<12)
+					{
+						for(var j=0;j<12-i;j++){
+							$("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='toSetMenu()'><span class=\"aui-iconfont aui-icon-add1 aui-text-epgray\"></span><p>其他</p></li>");
+						}
+					}
+//					var testURL = "myTask.html";
+//					var testTitle = "我的任务";
+//					$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + testURL + "\",\"" + testTitle + "\");'><span class=\"aui-iconfont aui-icon-playfill aui-text-primary\"></span><p>" + testTitle + "</p></li>");
+//
+//					var testURL1 = "exInit.html";
+//					var testTitle1 = "异常发起";
+//					$("#sixteenUL").append("<li class=\"aui-col-xs-4 aui-text-center\" tapmode onclick='goPage(\"" + testURL1 + "\",\"" + testTitle1 + "\");'><span class=\"aui-iconfont aui-icon-playfill1 aui-text-primary\"></span><p>" + testTitle1 + "</p></li>");
+					
+//					var testURL2 = "exHandling.html";
+//					var testTitle2 = "异常处理";
+//					$("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goPage(\"" + testURL2 + "\",\"" + testTitle2 + "\");'><span class=\"aui-iconfont aui-icon-playfill aui-text-primary\"></span><p>" + testTitle2 + "</p></li>");
+//					
+//					var testURL3 = "exClosing.html";
+//					var testTitle3 = "异常关闭";
+//					$("#sixteenUL").append("<li class=\"aui-col-xs-3 aui-text-center\" tapmode onclick='goPage(\"" + testURL3 + "\",\"" + testTitle3 + "\");'><span class=\"aui-iconfont aui-icon-playfill aui-text-primary\"></span><p>" + testTitle3 + "</p></li>");
+
+
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+			//getAllWorkCell();
+			//ggetAllWorkCell();etMsg();
+			//setInterval("getMsg()",10000);
+		};
+		
+		function getMsg(){//2016-11-4 17:06:20  William 这个getMsg估计是消息引擎的，这里直接注释掉，不用了
+			/*var serverUrl = localStorage.getItem('serverUrl');
+			var url = serverUrl + "padController!getAppMsg.m";
+			var un = localStorage.getItem('un');
+			var pw = localStorage.getItem('pw');
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+			var url1 = serverIp + ":" + serverPort + "/" + serverProject;
+			api.ajax({
+				url : url,
+				method : 'post',
+				dataType : 'text',
+				returnAll : 'false',
+				data : {
+					values : {
+						un : un,
+						pw : pw,
+						url : url1
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					var myobj = eval(ret);
+					var i = 0;
+					$("#msgUl").children().remove();
+					
+					if(myobj.length > 0)
+					{
+						api.notification({
+						    vibrate:[500,1000],
+						}, function(ret, err) {
+						    var id = ret.id;
+						});
+					}
+					for (; i < myobj.length; i++) {
+						$("#msgUl").append("<li class=\"aui-list-view-cell\"><div onclick='goPaging(\""+myobj[i].formCode+"\",\"" + myobj[i].usmBillId + "\",\"" + myobj[i].exTypeId + "\",\"" + myobj[i].taskId + "\",\"" + myobj[i].id + "\");' style=\"color: #848f94\"><h1>"+myobj[i].title+"</h1><h1 style=\"color: #848f94\">"+myobj[i].content+"</h1></div></li>");
+					}
+				} else {
+					api.toast({
+	                    msg : JSON.stringify(err),
+	                    duration : 5000
+                    });
+				}
+			});*/
+			
+		}
+		
+		function goPaging(url,usmBillId,exTypeId,taskId,msgId){
+		
+			var serverUrl = localStorage.getItem('serverUrl');
+			var url2 = serverUrl + "padController!updateMsgState.m";
+			var un = localStorage.getItem('un');
+			var pw = localStorage.getItem('pw');
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+			var url1 = serverIp + ":" + serverPort + "/" + serverProject;
+			
+			if(taskId != "")
+			{
+				api.ajax({
+					url : url2,
+					method : 'post',
+					dataType : 'text',
+					returnAll : 'false',
+					data : {
+						values : {
+							taskId : taskId,
+							type : 1
+						}
+					}
+				}, function(ret, err) {
+					if (ret == "success")
+					{
+						var title = "";
+						if("exResponse"==url)
+						{
+							url = "exResponse.html";
+							title = "异常响应";
+						}
+						if("exHandling"==url)
+						{
+							url = "exHandling.html";
+							title = "异常处理";
+						}
+						if("exClosing"==url)
+						{
+							url = "exClosing.html"
+							title = "异常关闭";
+						}
+						if("exConfirmClose"==url)
+						{
+							url = "exConfirmClose.html"
+							title = "异常关闭确认";
+						}
+						//alert(url);
+						api.openWin({
+							name : 'about1',
+							url : 'about1.html',
+							pageParam : {
+								url : url,
+								title : title,
+								usmBillId : usmBillId,
+								taskId :taskId,
+								exTypeId : exTypeId
+							}
+						});
+					}
+				});
+			}else{
+				api.ajax({
+						url : url2,
+						method : 'post',
+						dataType : 'text',
+						returnAll : 'false',
+						data : {
+							values : {
+								taskId : msgId,
+								type : 2
+							}
+						}
+					}, function(ret, err) {
+						if (ret == "success")
+						{
+							getMsg();
+						}
+					});
+			}
+			
+			
+			
+		}
+		
+		
+		function AutoResizeImage(maxWidth,maxHeight,objImg){
+			
+			var img = new Image();
+			img.src = objImg.src;
+			var hRatio;
+			var wRatio;
+			var Ratio = 1;
+			var w = img.width;
+			var h = img.height;
+			wRatio = maxWidth / w;
+			hRatio = maxHeight / h;
+			if (maxWidth ==0 && maxHeight==0){
+				Ratio = 1;
+			}else if (maxWidth==0){//
+				if (hRatio<1) Ratio = hRatio;
+			}else if (maxHeight==0){
+				if (wRatio<1) Ratio = wRatio;
+			}else if (wRatio<1 || hRatio<1){
+				Ratio = (wRatio<=hRatio?wRatio:hRatio);
+			}
+			if (Ratio<1){
+				w = w * Ratio;
+				h = h * Ratio;
+			}
+			objImg.height = h;
+			objImg.width = w;
+		}
+		
+		function toWorkCenter() {
+			api.openWin({
+				name : "workcenter_win",
+				url : "workcenter_win.html"
+			});
+		}
+
+		function setPerson() {
+			api.openWin({
+				name : "person_win",
+				url : "person_win.html"
+			});
+		}
+
+		function getMenu() {
+			var serverUrl = localStorage.getItem('serverUrl');
+			var url = serverUrl + "padController!getAppMenu.m";
+			var un = localStorage.getItem('un');
+			var pw = localStorage.getItem('pw');
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+			var url1 = serverIp + ":" + serverPort + "/" + serverProject;
+			api.ajax({
+				url : url,
+				method : 'post',
+				dataType : 'text',
+				returnAll : 'false',
+				data : {
+					values : {
+						un : un,
+						pw : pw,
+						url : url1
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					var myobj = eval(ret);
+					var i = 0;
+					for (; i < myobj.length; i++) {
+						$("#sixteenUL").append("<li class=\"aui-col-xs-6 aui-text-center\" tapmode onclick='goPage(\"" + myobj[i].url + "\",\"" + myobj[i].title + "\");'><span class=\"aui-iconfont aui-icon-playfill aui-text-epgreen\"></span><p>" + myobj[i].title + "</p></li>");
+					}
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+		}
+		
+		function getMenuByPid(title,pid){
+			api.openWin({
+				name : 'secondMenu_win',
+				url : 'secondMenu_win.html',
+				pageParam : {
+					title : title,
+					pid : pid
+				}
+			});
+		}
+
+		function goPage(url, title) {
+			api.openWin({
+				name : 'about',
+				url : 'about.html',
+				pageParam : {
+					url : url,
+					title : title
+				}
+			});
+		}
+		
+		function goPage2(url, title) {
+			api.openWin({
+				name : 'about2',
+				url : 'about2.html',
+				pageParam : {
+					url : url,
+					title : title
+				}
+			});
+		}
+		
+//		function goPage2(url, title) {
+//			api.openWin({
+//				name : title,
+//				url : url,
+//				pageParam : {
+//					url : url,
+//					title : title
+//				}
+//			});
+//		}
+
+
+		function goPctPage(toUrl, title) {
+			api.openWin({
+				name : 'about5',
+				url : 'about5.html',
+				pageParam : {
+					url : 'mesMenu.html',
+					title : title,
+					toUrl : toUrl
+				},
+				reload:true
+			});
+		}
+		function closeWin() {
+			api.closeWin();
+		}
+
+		function toPhoto() {
+//			api.openWin({
+//				name : "photoDemo",
+//				url : "photoDemo.html"
+//			});
+			
+			api.getPicture({
+			    sourceType: 'camera',//library    图片库//camera    相机         // albm  相册
+			    encodingType: 'jpg',//返回图片类型，jpg或png
+			    mediaValue: 'pic',//媒体类型，图片或视频
+			    destinationType: 'url',   //返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+			    allowEdit: true,          //是否可以选择图片后进行编辑，支持iOS及部分安卓手机
+			    //quality: 80,
+			    targetWidth: 400,        //压缩后的图片宽度，图片会按比例适配此宽度
+			    targetHeight: 500,      //压缩后的图片高度，图片会按比例适配此高度
+			    saveToPhotoAlbum: true  //拍照或录制视频后是否保存到相册
+			}, function( ret, err ){ 
+			    if( ret ){
+			         //alert( JSON.stringify( ret ) );
+			    }else{
+			         //alert( JSON.stringify( err ) );
+			    }
+			});
+		}
+
+		function toScanner() {
+//			api.openWin({
+//				name : "scannerDemo",
+//				url : "scannerDemo.html"
+//			});
+			
+			var FNScanner = api.require('FNScanner');
+			FNScanner.openScanner({
+			    autorotation: true,
+			},function( ret, err ){        
+			    if( ret ){
+			        //alert( JSON.stringify( ret ) );
+			        if(ret.eventType == 'success')
+			        {
+			        	//alert(ret.content);
+			        	//扫码获取设备编码，跳转到设备异常发起
+			        	
+			        	api.openWin({
+							name : 'about2',
+							url : 'about2.html',
+							pageParam : {
+								url : 'exUemInit.html',
+								title : '设备异常发起',
+								flag : 'scanner',
+								workCellCode : ret.content
+							}
+						});
+			        	
+			        }
+			        if(ret.eventType == 'fail')
+			        {
+			        	alert("扫码失败,请扫条码或二维码");
+			        }
+			    }else{
+			        alert( JSON.stringify( err ) );
+			    }
+			});
+		}
+		function goTvShowPage(toUrl, title) {
+			api.openWin({
+				name : title,
+				url : toUrl
+			});
+		}
+		
+		function toSetMenu()
+		{
+			api.openWin({
+				name : "setMenu",
+				url : "setMenu.html"
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>系统设置</title>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<style>
+			body {
+			}
+			p {
+				margin-bottom: 15px;
+			}
+	
+		</style>
+	</head>
+	<body>
+		<header class="aui-bar aui-bar-nav aui-bar-epichust" id="aui-header" style="background-color: #3498db">
+			<a class="aui-btn aui-btn-epichust aui-pull-left" tapmode onclick="closeWin()" style="background-color: #3498db"> 
+			<span class="aui-iconfont aui-icon-left" style="background-color: #3498db"></span> </a>
+			<div class="aui-title">
+				系统设置
+			</div>
+		</header>
+		<div class="aui-content">
+			<div class="aui-form">
+				<div class="aui-input-row"  style="text-align:center;margin-top: 80px">
+					<span class="aui-input-addon">服务器IP</span>
+					<input type="text" class="aui-input" placeholder="IP地址" id="serverIp" value="172.20.170.242"/>
+				</div>
+				<div class="aui-input-row">
+					<span class="aui-input-addon">端口号　</span>
+					<input type="text" class="aui-input" placeholder="如8080" id="serverPort" value="80"/>
+				</div>
+				<div class="aui-input-row">
+					<span class="aui-input-addon">服务名　</span>
+					<input type="text" class="aui-input" placeholder="服务器访问名称" id="serverProject" value="uma-unimax-web"/>
+				</div>
+			</div>
+			<div class="aui-content aui-content-padded" style="text-align:center;margin-top: 80px">
+					<p>
+					<div class="aui-btn aui-btn-info" onclick="doSave()" style="width: 100%;height: 100%;">
+						<span class="aui-iconfont aui-icon-writefill"></span>保　　存
+					</div>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			//加载页面的第一步永远都是状态栏显示
+			$api.fixStatusBar( $api.dom('header') );
+	        api.setStatusBarStyle({
+	            style: 'light',
+	            color: '#3498db'
+	        });
+			//指定屏幕旋转到特定方向
+			api.setScreenOrientation({
+			    orientation:'auto' // //屏幕根据重力感应在横竖屏间自动切换
+			});
+		
+		
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+
+			if(serverIp!=null || serverPort!=null || serverProject!=null)
+			{			
+				$("#serverIp").val(localStorage.getItem('serverIp'));
+				$("#serverPort").val(localStorage.getItem('serverPort'));
+				$("#serverProject").val(localStorage.getItem('serverProject'));
+			}
+		
+		};
+		function closeWin() {
+			api.closeWin();
+		}
+
+		function doSave() {
+			var serverIp = $("#serverIp").val();
+			var serverPort = $("#serverPort").val();
+			var serverProject = $("#serverProject").val();
+			var serverUrl = "http://" + serverIp + ":" + serverPort + "/" + serverProject + "/";
+			localStorage.setItem('serverIp', serverIp);
+			localStorage.setItem('serverPort', serverPort);
+			localStorage.setItem('serverProject', serverProject);
+			localStorage.setItem('serverUrl', serverUrl);
+			api.alert({
+				title : '保存成功',
+				buttons : ['确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 1) {
+					api.closeWin();
+				}
+			});
+		}
+	</script>
+</html>

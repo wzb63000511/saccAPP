@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>个人中心</title>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-content" id="sixteenDiv">
+			<ul class="aui-grid-sixteen">
+			<!--	<li class="aui-col-xs-4 aui-text-center" onclick='setLock();'>
+					<span class="aui-iconfont aui-icon-scan aui-text-primary"></span>
+					<p>
+						手势密码
+					</p>
+				</li>-->
+				<!--<li class="aui-col-xs-4 aui-text-center" onclick='setting();'>
+					<span class="aui-iconfont aui-icon-settings aui-text-primary"></span>
+					<p>
+						系统设置
+					</p>
+				</li>-->
+				<!--<li class="aui-col-xs-4 aui-text-center" onclick='speech();'>
+					<span class="aui-iconfont aui-icon-voice aui-text-primary"></span>
+					<p>
+						语音识别
+					</p>
+				</li>-->
+				<!--<li class="aui-col-xs-4 aui-text-center" onclick='push();'>
+					<span class="aui-iconfont aui-icon-community aui-text-primary"></span>
+					<p>
+						消息通知
+					</p>
+				</li>-->
+				
+				<li class="aui-col-xs-4 aui-text-center" onclick='openTelnetApp();'>
+					<span class="aui-iconfont aui-icon-service aui-text-primary"></span>
+					<p>
+						远程协助
+					</p>
+				</li>
+				
+				<!--<li class="aui-col-xs-4 aui-text-center" onclick='openAlarm();'>
+					<span class="aui-iconfont aui-icon-community aui-text-primary"></span>
+					<p>
+						本地通知
+					</p>
+				</li>
+				
+				<li class="aui-col-xs-4 aui-text-center" onclick='cancelAlarm();'>
+					<span class="aui-iconfont aui-icon-community aui-text-primary"></span>
+					<p>
+						取消通知
+					</p>
+				</li>-->
+				
+				<li class="aui-col-xs-4 aui-text-center" onclick='setMenu();'>
+					<span class="aui-iconfont aui-icon-calendar aui-text-primary"></span>
+					<p>
+						设置菜单
+					</p>
+				</li>
+				
+				<li class="aui-col-xs-4 aui-text-center" onclick='checkUpdate();'>
+					<span class="aui-iconfont aui-icon-calendar aui-text-primary"></span>
+					<p>
+						检查更新
+					</p>
+				</li>
+				
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script src="../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		function setLock() {
+			var un = localStorage.getItem('un');
+			var screanlockflag = localStorage.getItem(un + 'screanlockflag');
+			//alert(screanlockflag);
+			if (screanlockflag == '1') {
+				api.openWin({
+					name : "screenpersonchecklock_win",
+					url : "screenpersonchecklock_win.html"
+				});
+			} else {
+				api.openWin({
+					name : "screenpersonsetlock_win",
+					url : "screenpersonsetlock_win.html"
+				});
+			}
+		}
+
+		function speech() {
+			api.openWin({
+				name : "speechDemo",
+				url : "speechDemo.html"
+			});
+		};
+		
+		function push() {
+			api.openWin({
+				name : "pushDemo",
+				url : "pushDemo.html"
+			});
+		};
+		
+		function setting() {
+			api.openWin({
+				name : "settings",
+				url : "settings.html"
+			});
+		};
+		
+		function telnetApp(){
+			//appKey 请登录或注册CaiHongSDK企业用户后，添加新应用获取APPKEY后，进行相关配置。
+	        var app_key = "ciro1989#EpichustApp";
+	        //该参数为应用注册用户账号或者id，主要用于后台标识具体用户的服务数据，无需则可以直接传空
+	        var user_id = "ciro1989";
+	        //该参数为指定客服的工号，如果想找指定的客服服务，否则可以传空
+	        var worknum = "";
+	        //为第三方集成应用用户自己定义传递的数据，该数据可以传递给客服端，客服端可以显示解析显示这些自定义数据，否则传空
+	        var custom_data = {
+	            "公司名称":"艾普工华科技(武汉)有限公司",
+	            "地址":"武汉市华工科技大学科技园"
+	        };
+	
+	        var param = {
+	                appkey:app_key,
+	                userId:user_id,
+	                worknum:worknum,
+	                custom_data:custom_data,
+	            };
+	        var resultCallback = function(ret, err){
+	            alert(JSON.stringify(ret) + "" + JSON.stringify(err));
+	        }
+	        var cchelper = api.require('cchelperModule');
+	        cchelper.start(param, resultCallback);
+		}
+		
+		function openTelnetApp(){
+			api.openApp({
+			    //androidPkg: 'com.teamviewer.teamviewer.market.mobile',
+			    androidPkg: 'com.realvnc.viewer.android',
+			    mimeType: 'text/html'
+			}, function(ret, err){
+			    if(ret){
+			         alert(JSON.stringify(ret));
+			    }else{
+			         alert(JSON.stringify(err));
+			    }
+			});
+		}
+		var alarmId = "";
+		function openAlarm(){
+			var alarmNotification = api.require('alarmNotification');
+			alarmNotification.setAlarm({
+			    isLed: true
+			}, function(ret, err){        
+			    if( ret ){
+			        alert( ret.id );
+			        alarmId = ret.id;
+			    }else{
+			        alert( JSON.stringify( err ) );
+			    }
+			});
+		}
+		
+		function cancelAlarm(){
+			var alarmNotification = api.require('alarmNotification');
+			alarmNotification.cancelAlarm({
+			    id: alarmId
+			}, function(ret, err){        
+			    if( ret ){
+			        alert( JSON.stringify( ret ) );
+			    }else{
+			        alert( JSON.stringify( err ) );
+			    }
+			});
+		}
+	
+		function setMenu(){
+			api.openWin({
+				name : "setMenu",
+				url : "setMenu.html"
+			});
+		}
+		
+		function checkUpdate(){
+			var serverIp = localStorage.getItem('serverIp');
+			var serverPort = localStorage.getItem('serverPort');
+			var serverProject = localStorage.getItem('serverProject');
+			var downloadUrl = "http://" + serverIp + ":" + serverPort + "/" + serverProject + "/" + "excel_temp/EpichustApp.apk";
+
+			api.download({
+                url: downloadUrl,
+                report: true,
+                savePath: 'fs://EpichustApp.rar',
+            }, function(ret, err){
+                if(ret && 0 == ret.state){/* 下载进度 */
+                    api.toast({
+                        msg: "正在下载应用" + ret.percent + "%",
+                        duration: 10000
+                    });
+                }
+                //alert(ret.state);
+                //alert(ret.savePath);
+
+                if (ret && 1 == ret.state) {/* 下载完成 */
+                    var savePath = ret.savePath;
+					//alert(ret.savePath);
+                    api.installApp({
+                        appUri: savePath
+                    });
+                }
+                
+                if(ret && 2 == ret.state){
+                	api.toast({
+                        msg: "下载失败",
+                        duration: 10000
+                    });
+                }
+            });
+
+     
+
+            
+//          var downloadManager = api.require('downloadManager');
+//			downloadManager.enqueue({
+//			    url: downloadUrl,
+//			    cache: true,
+//			    allowResume: true,
+//			    networkTypes: 'all'
+//			}, function(ret, err){        
+//			    if( ret ){
+////			        alert( JSON.stringify( ret ) );
+//			        var retId = ret.id;
+//			        alert(retId);
+//			        downloadManager.query({
+//					    ids: [ 
+//					        retId
+//					    ]
+//					}, function(ret, err){        
+//					    if( ret ){
+//					    	api.toast({
+//			                        msg: "正在下载安装包",
+//			                        duration: 5000
+//			                    });
+//					    	alert( JSON.stringify( ret ) );
+//					        var savePath = ret.data[0].savePath;
+//					        //alert(savePath);
+//					        var status = ret.data[0].status;
+//					        if(status == "3")
+//					        {
+//						        api.installApp({
+//			                        appUri: savePath
+//			                    });
+//			                    
+//					        }
+//					        
+//					        if(status == "4"){
+//					        	api.toast({
+//			                        msg: "下载安装包出错",
+//			                        duration: 5000
+//			                    });
+//					        }
+//					        
+//					    }else{
+//					        alert( JSON.stringify( err ) );
+//					    }
+//					});
+//			    }else{
+//			        alert( JSON.stringify( err ) );
+//			    }
+//			});
+            
+		}
+
+	</script>
+</html>

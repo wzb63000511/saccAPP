@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--这个about和about2与产品的不同，这里的about是不带页面弹动效果，about2是带页面弹动效果  
+mts_menu 中 extended_field1的最后一个数字，1是弹动，2是不弹动 
+警告：产品那边不代表这个意思 ，我只是为了做可选择弹动-->
+<title>关于我们</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="copyright" content="www.apicloud.com" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.8.2.min.js"></script>
+<style>
+    html,body,header,section,footer,nav,div,ul,ol,li,img,a,span,em,del,center,strong,var,fieldset,form,label,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea{
+        margin:0;
+        border:0;
+        padding:0;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-style:normal;
+    }
+html,body {
+    -webkit-touch-callout:none;
+    -webkit-text-size-adjust:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    -webkit-user-select:none;
+}
+header,footer,section,nav,img,a,button,em,del,strong,var,fieldset,label,cite,small,time,mark,code,figcaption,figure,textarea{
+    display:block;
+}
+header,section,footer,nav {
+    position:relative;
+    overflow:hidden;
+}
+ol,ul{
+    list-style:none;
+}
+input,button,textarea {
+    border:0;
+    margin:0;
+    padding:0;
+    font-size:1em;
+    line-height:1em;
+    -webkit-appearance:none;
+    background-color:rgba(0, 0, 0, 0);
+}
+span{
+    display:inline-block;
+}
+a,a:visited{
+    text-decoration:none;
+}
+
+#header {
+    background-color:#272966;
+}
+#nav{
+    display:-webkit-box;
+    height:44px;
+}
+#left {
+    width:80px;
+    color:#fff;
+    background:url(../image/navbtn_back.png) no-repeat 14px 12px;
+    -webkit-background-size:12px 20px;
+}
+#left>span {
+    margin-top:13px;
+    margin-left:36px;
+    font-size:18px;
+    height:18px;
+    line-height:18px;
+}
+#middle {
+    -webkit-box-flex:1;
+    width:100%;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+}
+#title {
+    font-size:18px;
+    text-align:center;
+    color:#fff;
+}
+#right {
+	background-color:#FFFFFF;
+    width:150px;
+    padding-top: 10px;
+}
+section {
+    -webkit-box-flex:1;
+}
+    body {
+        background-image: url(../image/common/bg.png);
+    }
+</style>
+</head>
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav" style="background-color: #3498db;" id='header'>
+	    <a class="aui-pull-left">
+	        <span class="aui-iconfont aui-icon-left" onclick="api.closeWin()"></span>
+	    </a>
+	    <div class="aui-title" id="title">在制品转运</div>
+	</header>
+        <div id="main">
+        </div>
+    </div>
+</body>
+<script>
+
+apiready = function() {
+
+	var header = $api.byId('header');
+	$api.fixIos7Bar(header);
+	var headerPos = $api.offset(header);//获取元素在页面中的位置与宽高
+	    
+    var pageUrl = api.pageParam.url;
+    
+  
+    var title = api.pageParam.title;
+    
+$("#title").text(title);
+   	var frameH = api.winHeight - headerPos.h;
+    api.openFrame({
+        name: 'about-con',
+        url: pageUrl,
+        customRefreshHeader: 'UIPullRefreshMotive',
+        rect:{
+            x:0,
+            y:headerPos.h,
+            w:'auto',
+            h:frameH
+        },
+       	allowEdit:true,
+        bgColor: '#FFFFFF',
+        showProgress: true,
+        bounces: false,
+        reload:true
+    });
+
+}
+
+</script>
+</html>

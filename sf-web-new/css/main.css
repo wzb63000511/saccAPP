@@ -1,0 +1,171 @@
+﻿html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,hr,dialog{
+	margin:0;
+	padding:0;
+	border:0;
+	color:#999;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-style:normal;
+}
+
+html,body{
+	-webkit-touch-callout:none;
+	-webkit-text-size-adjust:none;
+	-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	-webkit-user-select:none;
+}
+
+body{
+	margin:0;
+	padding:0;
+	background-color:#f3f3f3;
+	color:#999;
+}
+
+footer,header,section,dialog,menu,a,label,strong,var,em,del,time,figcaption,figure,pre,img,small,mark,cite,code,fieldset,button{
+	display:block;
+}
+
+#main{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	min-height:100%;
+	overflow:hidden;
+}
+
+input[type="radio"]{
+	display:none!important;
+}
+#main,#header menu,form,#main > footer,#main > footer > div{
+	display:-webkit-box !important;
+	display: box !important;
+}
+#main{
+	-webkit-box-orient: vertical;
+	box-orient: vertical;
+}
+
+#header,#content,#footer{
+	position:relative;
+	overflow:hidden;
+}
+#header > div{
+	height:2.8125em;
+	line-height:2.8125em;
+}
+#content,form a,#shops ol,#main > footer div,#shop_item,#shop_item li{
+	box-flex:1;
+	-webkit-box-flex:1;
+}
+
+#header{
+    background-color: #028BE6;
+	-webkit-background-size: auto 2.8125em;
+}
+
+
+#header input[type="radio"] + div{
+	display:none;
+}
+#header input[type="radio"]:checked + div{
+	display:-webkit-box;
+}
+#header > div > a{
+	/*position:absolute;
+	top:0;	*/
+	height:2.8125em;
+	background-repeat:no-repeat;
+	background-position:center;
+	overflow:hidden;
+}
+#header > div > a.active{
+	background-color:transparent;
+	opacity:0.5;
+}
+#header .search{
+	width:60px;
+	background-image:url(../image/btn_search_bg.png);
+	-webkit-background-size:30px;
+}
+#header .gossip{
+    width:60px;
+	background-image:url(../image/btn_gossip_bg.png);
+	-webkit-background-size:30px;
+}
+.input-search{
+    margin-top: 6%;
+    height: 56%;
+    background: url('../image/btn_search_bg.png') left center no-repeat no-repeat;
+    background-size: 2em;
+    margin-left: 1em;
+    border: 1px solid #bebebe;
+    background-color: rgb(195, 172, 207);
+    border-radius: 51px;
+}
+.add-package{
+    background-image:url(../image/btn_add_connection_normal.png);
+    -webkit-background-size:30px;
+}
+
+#footer form{
+	padding-top:0.5625em;
+	height:2.5625em;
+	background:url(../image/footer_menu.png) repeat-x;
+	-webkit-background-size:auto 3.125em;
+	font-weight:bold;
+}
+#footer input[type="radio"] + a p{
+	width:100%;
+	height:1.4375em;
+	background-repeat:no-repeat;
+	background-position:center top;
+	-webkit-background-size:auto 1.55em;
+	-webkit-transition-duration:200ms;
+}
+#footer input[type="radio"]:checked + a p.home,.homeActive{
+    background-image:url('../image/tab_feeds_selected.png');
+}
+#footer input[type="radio"]:checked + a p.jobs,.jobsActive{
+    background-image:url('../image/tab_jobs_selected.png');
+}
+#footer input[type="radio"]:checked + a p.contacts,.contactsActive{
+    background-image:url('../image/tab_contacts_selected.png');
+}
+#footer input[type="radio"]:checked + a p.myself,.myselfActive{
+    background-image:url('../image/tab_myself_selected.png');
+}
+
+.homeActive,.jobsActive,.contactsActive,.myselfActive{
+    height: 1.4375em;
+    background-repeat: no-repeat;
+    background-position: center top;
+    -webkit-background-size: auto 1.55em;
+}
+
+
+
+
+#footer input[type="radio"] + a center{
+	font-size:0.75em;
+	color:#000;
+	opacity:0.3;
+	-webkit-transition-duration:200ms;
+}
+#footer input[type="radio"]:checked + a center{
+	opacity:1;
+}
+
+.home{
+	background-image:url('../image/tab_feeds_normal.png');
+}
+.jobs{
+	background-image:url(../image/tab_jobs_normal.png);
+}
+.contacts{
+	background-image:url(../image/tab_contacts_normal.png);
+}
+.myself{
+	background-image:url(../image/tab_myself_normal.png);
+}
+

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" >
+
+<head>
+    <meta charset="utf-8">
+    <title>生产订单查询</title>
+</head>
+<link rel="stylesheet" href="../bootstrap/css/fontstyle.css">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet"  />
+<link type="text/css" rel="stylesheet" href="../bootstrap/css/bootstrapValidator.css" />
+<link type="text/css" rel="stylesheet" href="../bootstrap/css/bootstrapValidator.min.css" />
+<script src="../1.3.0.14/angular.js"></script>
+<script src="../1.3.0.14/angular-route.js"></script>
+<script src="../1.3.0.14/angular-animate.js"></script>
+<script src="../script/app.js"></script>
+<script src="../script/filters.js"></script>
+<script src="../script/directives.js"></script>
+<script src="../controller/singleController.js"></script>
+<body ng-app="singleConfirmModule">
+
+<div class="panel panel-primary">
+    <!--    <div class="panel-heading">
+            <div class="text-center" style="font-size: 18px">制芯车间返工返修确认单</div>
+        </div>-->
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" ng-controller="repairConfirm" name="myFrom">
+                    <!--   <div class=" block ">
+                         <div class="form-group" >
+                             <div class="col-md-4  text-right control-label"  ><div class="mtop">生产中1心</div></div>
+                             <div class="col-md-8 control-label text-left" >
+                                 <select class="form-control" id="workcter" ng-model="repair.workcter"  requied>
+                                     <option value="">请选择</option>
+                                     <option ng-repeat="workcter in workcters" value="{{workcter.id}}">{{workcter.name}}</option>
+                                 </select>
+                             </div>
+                         </div>
+                     </div>
+                        <div class="form-group" >
+                                             <div class="col-md-4  text-right control-label"  >工 序：</div>
+                                             <div class="col-md-8 control-label text-left" >
+                                                 <select class="form-control" id="operation" ng-model="repair.operation" ng-change="changePlanOrderList()" requied>
+                                                     <option value="">请选择</option>
+                                                     <option ng-repeat="operation in operations" value="{{operation.code}}">{{operation.name}}</option>
+                                                 </select>
+                                             </div>
+                                         </div>-->
+                    <div class=" block " >
+                    <div class="form-group">
+                        <label for="plandate" class="col-md-4 control-label text-right">订单日期</label>
+                        <div class="input-append date form_datetime col-md-8" >
+                            <input type="text"  readonly id="plandate" name="plandate" ng-model="repair.plandate" >
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                    <label for="plandate" class="col-md-4 control-label text-right">订单号</label>
+                    <div class="aui-input-row" style="text-align:center;">
+                        <i class="aui-input-addon  aui-iconfont aui-icon-people"></i>
+                        <input type="text" class="aui-input" id="planorder" value="" ng-model="repair.planorder"/>
+                    </div>
+                    </div>
+
+                    <div class="form-group " >
+                        <div class="col-md-12  ">
+                            <button class="btn btn-success  btn-lg btn-block" ng-disabled="myFrom.$invalid"  ng-click="planqueryinput()">查询</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group " >
+                    <div class="col-md-12  ">
+                        <label  class="col-md-6 control-label text-left">手机新浪：</label>
+                        <a href="http://wap.sina.com.cn/">手机新浪</a>
+                    </div>
+                </div>
+
+                <div class="form-group " >
+                    <div class="col-md-12  ">
+                        <button class="btn btn-success  btn-lg btn-block"   onclick="planqueryinput1()">拍照</button>
+                    </div>
+                </div>
+                <div class="form-group " >
+                    <div class="col-md-12  ">
+                        <button class="btn btn-success  btn-lg btn-block"   onclick="planqueryinput2()">扫描二维码</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+    function planqueryinput1(){
+        api.getPicture({
+            sourceType: 'camera',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 50,
+            targetWidth: 100,
+            targetHeight: 100,
+            saveToPhotoAlbum: false
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    function planqueryinput2(){
+        var FNScanner = api.require('FNScanner');
+        FNScanner.openScanner({
+            autorotation: true
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+</script>
+

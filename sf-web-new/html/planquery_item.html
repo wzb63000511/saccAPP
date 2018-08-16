@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>返工返修明细</title>
+</head>
+<link rel="stylesheet" href="../bootstrap/css/fontstyle.css">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap-datetimepicker.css"/>
+<link rel="stylesheet" href="../bootstrap/css/bootstrapValidator.css"/>
+<link rel="stylesheet" href="../bootstrap/css/bootstrapValidator.min.css"/>
+<script src="../1.3.0.14/angular.js"></script>
+<script src="../1.3.0.14/angular-route.js"></script>
+<script src="../1.3.0.14/angular-animate.js"></script>
+<script src="../script/app.js"></script>
+<script src="../script/filters.js"></script>
+<script src="../script/directives.js"></script>
+<script src="../controller/planqueryController.js"></script>
+<body ng-app="RepairConfirmSearchItemModule">
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="text-center" style="font-size: 18px">订单查询明细</div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" ng-controller="repairConfirmSearchitem" name="myFrom">
+                    <div class=" block ">
+                        <div class="form-group">
+                            <div class="col-md-4  text-right control-label">
+                                <div class="mtop">订单号</div>
+                            </div>
+                            <div class="col-md-8 control-label text-left">
+                                <input type="text" id="code" class="form_datetime form-control"
+                                       ng-model="searchitem.code" readonly/>
+                                <input type="text" id="gid" class="form_datetime form-control"
+                                       ng-model="searchitem.gid" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" block ">
+                        <div class="form-group">
+                            <!--选择产品后 根据产品和时间 查询订单集合-->
+                            <div class="col-md-4  text-right control-label">
+                                <div class="mtop">工厂</div>
+                            </div>
+                            <div class="col-md-8 control-label text-left">
+                                <input type="text" id="sitecode" class="form_datetime form-control"
+                                       ng-model="searchitem.sitecode" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4  text-right control-label">
+                                <div class="mtop">项目代码</div>
+                            </div>
+                            <div class="col-md-8 control-label text-left">
+                                <input type="text" id="opname" class="form_datetime form-control"
+                                       ng-model="searchitem.prodcode" readonly/>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4  text-right control-label">
+                                <div class="mtop">项目名称</div>
+                            </div>
+                            <div class="col-md-8 control-label text-left">
+                                <input type="text" id="ordercode" class="form_datetime form-control"
+                                       ng-model="searchitem.prodname" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" block ">
+                        <div class="form-group">
+                            <div class="col-md-4  text-right control-label">
+                                <div class="mtop">架次</div>
+                            </div>
+                            <div class="col-md-8 control-label text-left">
+                                <input type="text" id="plandate" name="plandate" ng-model="searchitem.batchnum"
+                                       class="form-control" readonly/>
+                                <!--<select class="form-control" id="routeline" ng-model="batch.routeline">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="routeline in routelines" value="{{routeline.code}}">{{routeline.code}}</option>
+                                </select>-->
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">-->
+                        <!--<label for="qualifiedQuantity" class="col-md-4 control-label">合格数</label>-->
+                        <!--<div class="col-md-8">-->
+                        <!--<input type="text" class="form-control" id="qualifiedQuantity" readonly ng-model="batch.qualifiedQuantity">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <div class="col-md-4 text-right control-label">
+                                <div class="mtop">同步结果</div>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" id="checkresult" name="checkresult" ng-model="searchitem.syncresult"
+                                       class="form-control" readonly/><!--form-control-->
+                                <input type="text" id="test" name="test" ng-model="test"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    <div class="form-group ">
+                        <div class="col-md-12  ">
+                            <button class="btn btn-success  btn-lg btn-block" ng-disabled="myFrom.$invalid"
+                                    ng-click="confirmitem()">确认
+                            </button>
+                        </div>
+                    </div>
+                        <div class="form-group " >
+                            <div class="col-md-12  ">
+                                <button class="btn btn-success  btn-lg btn-block"   ng-click="planqueryinput1()">拍照</button>
+                            </div>
+                        </div>
+                        <div class="form-group " >
+                            <div class="col-md-12  ">
+                                <button class="btn btn-success  btn-lg btn-block"   ng-click="planqueryinput2()">扫描二维码</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

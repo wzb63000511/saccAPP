@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style>
+        #header{
+            text-align: center;
+        }
+        #header h5{
+            display: inline-block;
+            color: #FFF;
+            line-height: 48px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+        }
+        .btn_box{
+            width: 52px;
+            height: 48px;
+            position: relative;
+        }
+        .btn_box img{
+            width: 23px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .btn_box.pull-left{
+            background: url(../../res/img/webview_dividing.png) right center no-repeat;
+            background-size: 1px 100%;
+            position: relative;
+            z-index: 1;
+        }
+        .btn_box.pull-left:active,.btn_box.pull-left.tap-active{
+            background: #7F0000 url(../../res/img/webview_dividing.png) right center no-repeat;
+            background-size: 1px 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+		<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+		    <a class="aui-pull-left">
+		        <span class="aui-iconfont aui-icon-left"></span>
+		    </a>
+		    <div class="aui-title">fixStatusBar效果</div>
+		</header>
+		
+		
+		<header class="aui-bar aui-bar-nav aui-bar-epichust" id="aui-header" style="background-color: #3498db">
+			<a class="aui-btn aui-btn-epichust aui-pull-left" tapmode onclick="closeWin()"style="background-color: #3498db"> 
+			<span class="aui-iconfont aui-icon-left"style="background-color: #3498db"></span> </a>
+			<div class="aui-title" style="background-color: #3498db">
+				个人设置
+			</div>
+		</header>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+//  apiready = function(){
+//      window.header = $api.byId('aui-header');
+//      $api.fixStatusBar(header); 
+//      window.headerPos = $api.offset(header);
+//      var main = $api.byId('main');
+//      window.mainPos = $api.offset(main);
+//      var name = api.pageParam.title;
+//      var title = api.pageParam.title;
+//      $api.dom('#aui-header div').innerHTML = title;
+////      var url = './'+name+'.html'
+//      var url = api.pageParam.url;
+//      api.openFrame({
+//          name: name,
+//          url: url,
+//          rect: {
+//              x: 0,
+//              y: headerPos.h,
+//              w: 'auto',
+//              h: 'auto'
+//          }
+//      });  
+
+//  }
+//apiready = function() {
+//			api.parseTapmode();
+//			var header = $api.byId('aui-header');
+//			$api.fixStatusBar(header);
+//			var headerPos = $api.offset(header);
+//			var title = api.pageParam.title;
+//			var url= api.pageParam.url;
+//			api.openFrame({
+//				name : title,
+//				url : url,
+//				bounces : true,
+//				rect : {
+//					x : 0,
+//					y : headerPos.h,
+//					w : 'auto',
+//					h : 'auto'
+//				}
+//			});
+//		};
+    
+    
+</script>
+</html>

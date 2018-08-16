@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+<head>
+<title>工作单元绑定</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />-->
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<link rel="stylesheet" type="text/css" href="../css/icons.css" />
+	<style>
+		#afui label {
+		    font-size: 1.2em;
+		    font-weight: bold;
+			width:20%;
+			float:none;
+		}
+		.head{
+			width:500px;
+			
+		}
+		.center{
+			margin:auto;
+		}
+		#afui .input-group .tex{
+			background-color:#F2F9FF;
+		}
+		#afui select{
+			padding:0 ;
+		}
+		
+		#afui .input-group input:not([type="submit"]):not([type="button"]):last-child,
+		#afui .input-group textarea:last-child,
+		#afui .input-group select:last-child {
+		  border-bottom: 1px solid #CBD6DE;
+		}
+		
+		.btn{
+			font-size:14px;
+		}
+		#afui .button {
+		    font-size: 18px;
+		    width:90px;
+		    height:32px;
+		}
+		
+			.row1 td{
+				background: red;
+			}
+			.row0 td{
+				background: yellow;
+			}
+			.row_hover td {
+				background: #FBFACE;
+				color: #000000;
+			}
+		.btn31 {
+		    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+		    height: 42px;
+		    width: 131px;
+		    -webkit-border-radius: 40px;
+		    -moz-border-radius: 40px;
+		    border-radius: 40px;
+		 
+		    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		    -moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		    box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+		 
+		    -webkit-transition: all 0.15s ease;
+		    -moz-transition: all 0.15s ease;
+		    -o-transition: all 0.15s ease;
+		    -ms-transition: all 0.15s ease;
+		    transition: all 0.15s ease;
+			
+		}
+		.btn32{
+			height: 42px;
+		    width: 150px;
+		    border: none;
+		    outline: none;
+		    cursor: pointer;
+		    color: white;
+		    background: url("static/img/button_bg.png") no-repeat left top;
+		}
+		#afui input[type=button], #afui input[type=submit], #afui button {
+		    font-size: 20px;
+		}
+		
+		#afui .list {
+			    font-size: 1.2em;
+		    font-weight: bold;
+		    width:100px;
+		    
+		}
+		#afui #displayMessage{
+		    width: 400px;
+		    line-height: 70px;
+		    text-align:center;
+		    font-size: 16px;
+		    position: absolute;
+		    z-index: 100;
+			top:18%;
+			left:0;right:0;
+			margin:auto;
+			
+			background-color: #FDFFD5;
+		    border: 1px solid #f57676;
+			border-radius:6px;
+		    color: #af6606;
+		}
+		.table tr:first-child{
+			background: url(static/img/tableheader-bg.gif) no-repeat left top;
+			background-color:#DCE9F2;
+		    border-top: 1px solid #CBD6DE;
+		    border-bottom: 1px solid #ADBECB;
+		    color: #467aa7;
+		    font-size: 13px;
+		    font-weight: bold;
+		}
+		.table{
+			margin-bottom: 15px;
+			width: 100%;
+			border-collapse: collapse;
+			font-size:13px;
+			margin-bottom: 15px;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.table td{
+			height:45px;
+			text-align:center;
+			border:1px solid #CBD6DE;
+			padding:0 ;
+			margin: 0;
+			
+		}
+		#afui .icon check big{
+			font-size:6px;
+			color:blue;
+		}
+		#afui .icon check b{
+		     font-size:8px;
+			color:#FDFDFD;
+		}
+		.grey_overlay {
+			display: none;
+			position: absolute;
+			top: 0.1%;
+			left: 0%;
+			right: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(158, 158, 158, 0.52);
+			z-index: 190;
+			-moz-opacity: 0.8;
+			opacity: .80;
+			filter: alpha(opacity = 80);
+		}
+		
+		#center {
+			background-color:red;
+		}
+		
+	   #workcenter1{
+	   border-bottom:#666 1px solid;
+	   border-left-width:0px;
+	   border-right-width:0px;
+	   border-top-width:0px;
+	   }
+	   .r{position:fixed; bottom:0;width:100%;}
+	   .white {
+        color: #606060;
+        border: solid 1px #b7b7b7;
+        background: #fff;
+        background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+        background: -moz-linear-gradient(top,  #fff,  #ededed);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+    </style>
+</head>
+<body >
+	
+
+<div id="mainPanel" class="panel vertical-col" selected="true"> 
+ 	<div class="input-group center" style="overflow: auto;width:100%;">
+ 	 		 
+		       	<div id="hasbind" style="margin-bottom: 5px;margin-top: 5px;margin-left: 5px">
+		       	   <a>已绑定工作中心:</a><input id="bind"  name="bind" style="BACKGROUND-COLOR: transparent;"/>
+		       	</div>		  					 
+ 		  
+ 		       <div class="r " >
+ 		  					<button type="button" class="white" style="font-family: 微软雅黑; font-size: 22px;width:100%;height: 50px;background: #3498db;    color: #FFFFFF " onclick="docommit()">提交</button>
+
+ 		  					 </div> 
+			 	
+		<div id="hisInfo" class="hisInfo" style="background-color:white;">
+			<table id="disBillTable" class="table"  >
+	
+			</table>
+		</div>
+       	
+		<div id="displayMessage" class="displayMessage center" style="display:none;margin:auto;">
+			displayMessage!
+		</div>
+		
+		<a href="#mrlSortDetailPanel" id="linkMrlSortDetailPanel" class="button block" style="display: none;"></a>
+ 	</div>
+ 	
+ 	<!-- 背景遮盖层 -->
+	<div id="fade" class="grey_overlay"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<!--script type="text/javascript" src="static/appframework-2.1.0/js/pda.js"></script-->
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/pda.js"></script>
+<script type="text/javascript" src="../script/page.js"></script>
+<script type="text/javascript">
+//$(function(){
+//	  var area = document.getElementById('disBillTable');
+//	  if(screen.availHeight > screen.availWidth)
+//	  {
+//	  	area.style.height = screen.availHeight*0.68+"px";
+//	  }else
+//	  {
+//		  area.style.height = screen.availHeight*0.5+"px";  
+//	  }
+//	  //$("#disBillTable").scroller({useJsScroll:true});
+//	  // 添加事件监听
+////	  $(window).bind("resize", function() {
+////		  $("#afui").height("initial");
+////		  if(screen.availHeight > screen.availWidth)
+////		  {
+////		  	area.style.height = screen.availHeight*0.68+"px";
+////		  }else
+////		  {
+////			 area.style.height = screen.availHeight*0.5+"px";  
+////		  }
+////	  });
+//});
+
+var rulesettype="";
+var type="";
+function barcodeInputRefresh(data)
+{
+   	if(data!=""){
+	$("#disBillCode").val(data);
+	}else{
+	alert("请重新扫描");
+	}
+}
+//为了界面美观，封装下显示信息
+//function showMessage(message){
+//				$("#afui").popup({
+//		        title: "温馨提示:",
+//		        message: message,
+//		        cancelText: "OK",
+//		        cancelCallback: function () {
+//	                return;
+//	           	},
+//	            cancelOnly: true
+//	        });
+//}
+//显示信息停留几秒钟
+function displayMessage(message,time){
+	$("#displayMessage").text(message);
+	$("#displayMessage").show();
+	setTimeout(function(){$("#displayMessage").hide();},time*1000)
+}
+
+
+//打钩切换class
+function toggleClass(len){
+	var a_class=$("#ms_td"+len+"").attr("class");
+	//console.log(a_class);
+	if(a_class=="icon check big"){
+		$("#ms_td"+len+"").removeClass("icon check big");
+	}else{
+		$("#ms_td"+len+"").addClass("icon check big");
+	}
+	
+}
+//全新的切换class  不需要使用行号len
+function newToggleClass(obj){
+	var s=obj.firstChild.firstChild;
+	if(s.getAttribute("class")=="icon check big"){
+		s.removeAttribute("class");
+	}else{
+		s.setAttribute("class","icon check big");
+	}
+}
+
+//增加表格行
+function addRow2(row , num){
+	var tab = document.getElementById("disBillTable");
+	var len = tab.rows.length;
+	var newTR = tab.insertRow(len);
+	newTR.id = "tr";
+	newTR.onclick=function(){selectOnlyOne(len);};  
+		
+	var select = newTR.insertCell(0);
+	select.innerHTML ="<div id='td"+len+"' class='' style='margin-left:8px;width:12px;color:#467aa7;text-align:center '></div>";
+	//select.innerHTML ="<a id='td"+len+"' class='' style='width:15px;color:#467aa7;'></a>";
+	//select.innerHTML ="<input id='td"+len+"'  class='' name='checkbox' type='checkbox' onclick='changeselect()' style='width:22px;height:22px'>";
+		
+	var seq = newTR.insertCell(1);
+	seq.innerHTML = num +1;
+  	
+	var seq = newTR.insertCell(2);
+	seq.innerHTML = row.workCellCode;
+	var $seq = $(seq);
+	$seq.data("gid", row.workCellId);
+    $seq.data("workCellCode", row.workCellCode);
+    $seq.data("workCellName", row.workCellName);
+	var seq = newTR.insertCell(3);
+	seq.innerHTML = row.workCellName;
+	
+	
+	
+	
+}
+
+function clearDisBillTable(){
+	var table = "<table id='disBillTable' style='width:100%;'><tr id='tr1' style='display:none;'><td >选择</td><td >序号</td><td >工位编码</td><td >工位名称</td></tr></table>";
+	var tab = document.getElementById("disBillTable");
+	tab.innerHTML = table;
+}
+function clearMrlSortTable(){
+	var len=$("#mrlSortTable").find("tr").length;
+	for(var i=len;i>0;i--){
+		$("#ms_tr").remove();  
+	}
+}
+
+
+function EnterPress(e){
+	var e=e||window.event;
+	if (e.keyCode == 13) {
+		query1();
+    } 
+}
+
+
+function docommit()
+{
+	var count = 0;
+	var ids = new Array();
+	var name_array = new Array();
+	var code_array = new Array();
+	//先去遍历表格中选中打钩的
+	var rows=$("#disBillTable").find("tr").length;
+	for(var i=1;i<rows;i++){
+		var a_class=$("#td"+i+"").attr("class");
+		if(a_class=="icon check big"){
+			count++;//打钩行数+1
+			disBillCode=$("#td"+i+"").parent().parent().children().eq("2").data("gid");
+			workCellCode=$("#td"+i+"").parent().parent().children().eq("2").data("workCellCode");
+			workCellName=$("#td"+i+"").parent().parent().children().eq("2").data("workCellName");
+			ids.push(disBillCode);
+			name_array.push(workCellName);
+			code_array.push(workCellCode);
+			//ids[i-1] = disBillCode;
+			//code_array[i-1] = workCellCode;
+			//name_array[i-1] = workCellName;
+		}
+	}
+    if(count==0){
+    alert("请选择绑定的工位!");
+    return;
+    }
+	var idstr=ids.join(',');//将数组元素连接起来以构建一个字符串
+	var nameStr=name_array.join(',');
+	var codestr=code_array.join(',');
+	$api.setStorage('workcenteridstr',idstr);
+	$api.setStorage('workcenternameStr',nameStr);
+	$api.setStorage('workcentercodestr',codestr);
+     alert("绑定成功!");
+}
+function changeselect(){
+
+     if(type==1&&rulesettype==1){
+       cleanSelect();
+      type=2;
+      }else{
+      selectAll();
+      type=1;
+      }
+}
+function cleanSelect(){
+var rows=$("#disBillTable").find("tr").length;
+	for(var i=0;i<rows;i++){
+		var a_class=$("#td"+i+"").attr("class");
+		if(a_class=="icon check big"){
+		   $("#td"+i+"").removeClass("icon check big");
+		}
+	}
+}
+function selectAll(){
+var rows=$("#disBillTable").find("tr").length;
+	for(var i=0;i<rows;i++){	
+		  $("#td"+i+"").addClass("icon check big");	
+	}
+}
+function selectOnly_one(len){
+
+	var rows=$("#disBillTable").find("tr").length;
+	for(var i=0;i<rows;i++){
+		var a_class=$("#td"+i+"").attr("class");
+		if(a_class=="icon check big"){
+		   $("#td"+i+"").removeClass("icon check big");
+		}
+	}
+   		$("#td"+len+"").addClass("icon check big");
+
+}
+function selectOnly_many(len){
+	var a_class=$("#td"+len+"").attr("class");
+	//console.log(a_class);
+	if(a_class=="icon check big"){
+	
+		$("#td"+len+"").removeClass("icon check big");
+	}else{
+	
+		//清空所有打钩
+		//var r=$("#disBillTable").find("tr").length;
+		//for(var i=r;i>0;i--){
+			//$("#td"+i+"").removeClass("icon check big");  
+		//}
+		//然后在给该行打钩
+		$("#td"+len+"").addClass("icon check big");
+	}
+}
+
+function getresult(){
+	  var url=getresultUrl();
+		api.ajax({
+			url:url,		
+			},function(ret, err) {		
+			api.hideProgress();
+			if(ret.length>0) {							
+			rulesettype=ret[0].rulesettype;
+			}
+		});
+}
+//只能选择某一行
+function selectOnlyOne(len){
+         if(rulesettype==0){
+				selectOnly_one(len);
+				}else{
+				//alert(3);
+				selectOnly_many(len);
+				}
+		}
+
+  //function hasselect(){
+   // var rows=$("#disBillTable").find("tr").length;
+    //alert(rows);
+	//  for(var i=0;i<rows;i++){	
+	//	  $("#td"+i+"").addClass("icon check big");	
+	//  }
+	  
+  //}
+  function hasselect(){
+  alert(1);
+$("#disBillTable").find("tr").each(function(){
+    var tdArr = $(this).children();
+    var history_income_type = tdArr.eq(0).find("input").val();//收入类别
+    var history_income_money = tdArr.eq(1).find("input").val();//收入金额
+    var history_income_remark = tdArr.eq(2).find("input").val();//  备注
+     
+    alert(history_income_type);
+    alert(history_income_money);
+    alert(history_income_remark);
+     
+     
+  });
+  }
+	//初始化
+	apiready = function(){
+		queryworkcell();
+		getresult();
+		hasbind();
+		//setTimeout("hasselect()",90);
+	    	
+	
+	};
+	function hasbind(){
+	var workcentername=$api.getStorage("workcenternameStr");
+	
+	document.getElementById("bind").value=workcentername;
+	}
+
+  //function cancelfrist(){
+  //var row = document.getElementById('tr1);  
+   //row.style.display = "none";  
+  //} 
+	function getworkcenter(){
+	 var workCenterId=api.pageParam.workCenterId;
+	  var url=getworkcellbyworkcenterUrl();
+
+		api.ajax({
+			url:url,
+			data:{
+			values: {
+				 workCenterId:workCenterId,
+			}
+		         }
+			},function(ret, err) {		
+			api.hideProgress();
+			if(ret.length>0) {							
+			var workCenterName=ret[0].workCenterName;
+				$("#workcenter").val(workCenterName);
+			}
+		});
+	}
+	//获取工位
+	function queryworkcell(){
+    var workCenterId=api.pageParam.workCenterId;
+    var url=getworkcellUrl();
+	api.ajax({
+		url:url,
+		async : true,
+		type : 'post'
+	},function(ret, err) {
+			//console.log(ret);
+			if (ret != null && ret != "")
+			{
+				var table = "<table id='disBillTable' style='width:100%;'><tr id='tr1' ><td ><input name='checkbox' type='checkbox' onclick='changeselect()' style='width:1px;height:22px'></td><td algin='center'>序号</td><td algin='center'width='30%'>工作中心编码</td><td algin='center'>工作中心名称</td></table>";
+				var tab = document.getElementById("disBillTable");
+				tab.innerHTML = table;
+//				var json = $.parseJSON(data);
+				for(var i=0;i<ret.length;i++){
+					addRow2(ret[i], i);
+				}
+			}
+			else {
+				alert("没有数据!");
+				//clearDisBillTable();
+			}
+		
+	});
+		
+}
+		
+</script>
+</html>
